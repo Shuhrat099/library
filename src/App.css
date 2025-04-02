@@ -6,3 +6,7 @@
 .animate-moving {
     animation: moving 4s infinite linear;
 }
+
+ul li {
+    list-style: disc ;
+}
