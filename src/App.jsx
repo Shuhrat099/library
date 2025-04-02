@@ -28,7 +28,7 @@ const App = () => {
                 setLoading(false);
             }
         }
-        const timeOut = setTimeout(fetchBooks, 1000);
+        const timeOut = setTimeout(fetchBooks, 700);
 
         return () => clearTimeout(timeOut);
     }, [searchTerm])
@@ -38,8 +38,6 @@ const App = () => {
             setSearchTerm(query.trim());
         }
     }
-
-
 
     if (error) {
         return <p className="text-center text-red-500">{error}</p>;
@@ -56,22 +54,24 @@ const App = () => {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search by title..."
                 />
+                {loading && (
+                    <div className="w-full mt-4 bg-gray-200 rounded-full h-2.5 relative overflow-hidden container">
+                        <div className="absolute inset-0 bg-indigo-500 w-full h-full animate-moving"></div>
+                    </div>
+                )}
+
                 <div className="w-full h-2/3 grid grid-cols md:grid-cols-2 lg:grid-cols-3 gap-3 container mx-auto">
                     {books.length > 0 ? books.map((book) => (
-                        <div key={book.id || book.title} className="card bg-white flex flex-row rounded-xl text-left p-4 gap-5">
-                            <img src={book.volumeInfo.imageLinks?.thumbnail} alt="Image not found" className="border" />
+                        <card key={book.id || book.title} className="card bg-white flex flex-row rounded-xl text-left p-4 gap-5" >
+                            <img src={book.volumeInfo.imageLinks?.thumbnail} alt="Image not found" className=" border" />
                             <div className="flex flex-col gap-3">
                                 <h2 className="text-red-600">{book.volumeInfo.title}</h2>
                                 <span className="my-4 line-clamp-4">Published: {book.volumeInfo.publishedDate} by <p>{book.volumeInfo.authors}</p></span>
                                 <a href={book.volumeInfo.infoLink} target="_blank" className="text-blue-600">More information...</a>
                             </div>
-                        </div>
-                    )) : (
-                        <div className="w-full h-2.5 relative overflow-hidden mt-5">
-                            <div className="absolute inset-0 bg-gray-200 rounded-full w-full">
-                                <div className="bg-indigo-500 w-full h-full animate-moving"></div>
-                            </div>
-                        </div>
+                        </card>
+                        )): (
+                        <p className="text-center text-white">No books found.</p>
                     )}
                 </div>
             </div>

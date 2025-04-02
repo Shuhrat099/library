@@ -4,5 +4,5 @@
     100% { transform: translateX(100%); }
 }
 .animate-moving {
-    animation: moving 2s infinite linear;
+    animation: moving 4s infinite linear;
 }
