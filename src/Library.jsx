@@ -44,7 +44,7 @@ const App = () => {
     }
 
     return (
-        <div className="bg-[url('https://book-api-gules.vercel.app/img/oldbooks.8e9b1e6f.jpg')] bg-no-repeat bg-cover bg-center w-full h-lvh flex flex-col items-center p-10 gap-10">
+        <div className="bg-[url('https://book-api-gules.vercel.app/img/oldbooks.8e9b1e6f.jpg')] bg-no-repeat bg-cover bg-center w-full  flex flex-col items-center p-10 gap-10">
             <h1 className="text-4xl text-white">Search for book by title:</h1>
             <input
                 type="text"
@@ -65,8 +65,8 @@ const App = () => {
                     <card key={book.id || book.title} className="card bg-white flex flex-row rounded-xl text-left p-4 gap-5" >
                         <img src={book.volumeInfo.imageLinks?.thumbnail} alt="Image not found" className=" border" />
                         <div className="flex flex-col gap-3">
-                            <h2 className="text-red-600">{book.volumeInfo.title}</h2>
-                            <span className="my-4 line-clamp-4">Published: {book.volumeInfo.publishedDate} by <p>{book.volumeInfo.authors}</p></span>
+                            <h2 className="text-red-600 line-clamp-2">{book.volumeInfo.title}</h2>
+                            <span className="my-4 line-clamp-3">Published: {book.volumeInfo.publishedDate} by <p>{book.volumeInfo.authors}</p></span>
                             <a href={book.volumeInfo.infoLink} target="_blank" className="text-blue-600">More information...</a>
                         </div>
                     </card>
