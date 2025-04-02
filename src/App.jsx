@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import './App.css'
 
 const App = () => {
     const [books, setBooks] = useState([]);
@@ -27,7 +28,7 @@ const App = () => {
                 setLoading(false);
             }
         }
-        const timeOut = setTimeout(fetchBooks, 700);
+        const timeOut = setTimeout(fetchBooks, 1000);
 
         return () => clearTimeout(timeOut);
     }, [searchTerm])
@@ -38,9 +39,12 @@ const App = () => {
         }
     }
 
-    {loading && <p className="text-center text-white">Yuklanmoqda...</p>}
 
-    {error && <p className="text-center text-red-500">{error}</p>}
+
+    if (error) {
+        return <p className="text-center text-red-500">{error}</p>;
+    }
+
     return (
             <div className="bg-[url('https://book-api-gules.vercel.app/img/oldbooks.8e9b1e6f.jpg')] bg-no-repeat bg-cover bg-center w-full h-lvh flex flex-col items-center p-10 gap-10">
                 <h1 className="text-4xl text-white">Search for book by title:</h1>
@@ -54,16 +58,20 @@ const App = () => {
                 />
                 <div className="w-full h-2/3 grid grid-cols md:grid-cols-2 lg:grid-cols-3 gap-3 container mx-auto">
                     {books.length > 0 ? books.map((book) => (
-                        <card key={book.id || book.title} className="card bg-white flex flex-row rounded-xl text-left p-4 gap-5" >
-                            <img src={book.volumeInfo.imageLinks?.thumbnail} alt="Image not found" className=" border" />
+                        <div key={book.id || book.title} className="card bg-white flex flex-row rounded-xl text-left p-4 gap-5">
+                            <img src={book.volumeInfo.imageLinks?.thumbnail} alt="Image not found" className="border" />
                             <div className="flex flex-col gap-3">
                                 <h2 className="text-red-600">{book.volumeInfo.title}</h2>
-                                <span className="my-4">Published: {book.volumeInfo.publishedDate} by <p>{book.volumeInfo.authors}</p></span>
-                                <a href={book.volumeInfo.link} className="text-blue-600">More information...</a>
+                                <span className="my-4 line-clamp-4">Published: {book.volumeInfo.publishedDate} by <p>{book.volumeInfo.authors}</p></span>
+                                <a href={book.volumeInfo.infoLink} target="_blank" className="text-blue-600">More information...</a>
                             </div>
-                        </card>
-                        )): (
-                        <p className="text-center text-white">Hech qanday natija topilmadi</p>
+                        </div>
+                    )) : (
+                        <div className="w-full h-2.5 relative overflow-hidden mt-5">
+                            <div className="absolute inset-0 bg-gray-200 rounded-full w-full">
+                                <div className="bg-indigo-500 w-full h-full animate-moving"></div>
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
