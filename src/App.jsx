@@ -3,7 +3,7 @@ import './App.css'
 
 const App = () => {
     const [books, setBooks] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
     const [ query, setQuery ] = useState("");
     const [error, setError] = useState(null);
     const [searchTerm, setSearchTerm] = useState("");
